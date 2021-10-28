@@ -43,7 +43,7 @@ public class PlayerScript : MonoBehaviour
         playerHealth = value;
         if (value < 1)
         {
-            SceneManager.LoadScene(0);
+            // SceneManager.LoadScene(0);
         }
         HealthBarScript healthBar_script = healthBar.GetComponent<HealthBarScript>();
         healthBar_script.ChangeValue();

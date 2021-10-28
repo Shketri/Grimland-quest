@@ -18,7 +18,7 @@ public class MonsterScript : MonoBehaviour
         audioSource.Play();
         PlayerScript player_script = playerScript.GetComponent<PlayerScript>();
         PanelScript panelScript = panel.GetComponent<PanelScript>();
-        panelScript.Invoke("AttackWithAllMonsters", 1f);
+        panelScript.Invoke("AttackWithAllMonsters", 0.7f);
         if (player_script.GetPlayerDamage() < monsterHealth)
         {
             Debug.Log(name + " recieved damage!");

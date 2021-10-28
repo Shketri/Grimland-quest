@@ -9,11 +9,8 @@ public class PanelScript : MonoBehaviour
 
     public void LoadNextPanel()
     {
-       // if (thisPanel.transform.childCount == 1)
-       // {
-            thisPanel.SetActive(false);
-            nextPanel.SetActive(true);
-       // }
+        thisPanel.SetActive(false);
+        nextPanel.SetActive(true);
     }
 
     public void AttackWithAllMonsters()
