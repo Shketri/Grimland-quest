@@ -4,28 +4,67 @@ using UnityEngine;
 
 public class PanelScript : MonoBehaviour
 {
-    public GameObject thisPanel;
-    public GameObject nextPanel;
+    private GameObject mapPanel;
+    private GameObject attributesPanel;
 
     public void LoadNextPanel()
     {
-        thisPanel.SetActive(false);
+        gameObject.SetActive(false);
+        GameObject thisLevel = gameObject.transform.parent.gameObject;
+        GameObject nextPanel = null;
+        for (int i = 0; i < thisLevel.transform.childCount; i++)
+        {
+            if (thisLevel.transform.GetChild(i).gameObject == gameObject)
+            {
+                nextPanel = thisLevel.transform.GetChild(i + 1).gameObject;
+                break;
+            }
+        }
+
         nextPanel.SetActive(true);
     }
 
+   // public void AttackWithAllMonsters()
+    //{
+      //  if (gameObject.transform.childCount > 0)
+        //{
+          //  foreach (Transform child in transform)
+            //{
+              //  MonsterScript monsterScript = child.GetChild(1).GetComponent<MonsterScript>();
+                //monsterScript.DealDamage();
+            //}
+        //}
+        //else
+       // {
+        //    LoadNextPanel();
+        //}
+    //}
+
     public void AttackWithAllMonsters()
     {
-        if (thisPanel.transform.childCount > 0)
+        int activeMonsters = 0;
+        for (int i = 0; i < gameObject.transform.childCount; i++)
         {
-            foreach(Transform child in transform)
+            if (gameObject.transform.GetChild(i).gameObject.activeSelf)
             {
-                MonsterScript monsterScript =  child.GetChild(1).GetComponent<MonsterScript>();
+                MonsterScript monsterScript = gameObject.transform.GetChild(i).GetChild(1).GetComponent<MonsterScript>();
                 monsterScript.DealDamage();
+                activeMonsters += 1;
             }
-        }
-        else
+        }  
+        if (activeMonsters < 1)
         {
             LoadNextPanel();
         }
+    }
+
+    public void setMapStatus()
+    {
+        GameObject player = GameObject.Find("PlayerScriptObject");
+        PlayerScript player_script = player.GetComponent<PlayerScript>();
+        player_script.SetPlayerProgress(gameObject.transform.parent.gameObject.transform.parent.gameObject);
+        mapPanel = GameObject.Find("MapPanel");
+        MapScript mapScript = mapPanel.GetComponent<MapScript>();
+        mapScript.setupMapStatus();
     }
 }

@@ -55,9 +55,9 @@
      <Compile Include="Assets\Scripts\MonsterScript.cs" />
      <Compile Include="Assets\Scripts\SceneLoader.cs" />
      <Compile Include="Assets\Scripts\PlayerScript.cs" />
+     <Compile Include="Assets\Scripts\MapScript.cs" />
      <Compile Include="Assets\Scripts\HealthBarScript.cs" />
      <Compile Include="Assets\Scripts\PanelScript.cs" />
-     <Compile Include="Assets\Scripts\AreaClearedScript.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
