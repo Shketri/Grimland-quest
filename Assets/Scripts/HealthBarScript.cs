@@ -17,7 +17,7 @@ public class HealthBarScript : MonoBehaviour
         GameObject player = GameObject.Find("PlayerScriptObject");
         PlayerScript player_script = player.GetComponent<PlayerScript>();
         healthBar.maxValue = (int)player_script.GetPlayerMaxHealth();
-        healthBar.value = player_script.GetPlayerHealth();
+        healthBar.value = (int) player_script.GetPlayerHealth();
         if (healthBar.value == 0)
         {
             Invoke("LoadHubPanel", 0.3f);
@@ -30,8 +30,8 @@ public class HealthBarScript : MonoBehaviour
     {
         GameObject player = GameObject.Find("PlayerScriptObject");
         PlayerScript player_script = player.GetComponent<PlayerScript>();
-        xpBar.maxValue = player_script.GetPlayerXPLimit();
-        xpBar.value = player_script.GetPlayerXP();
+        xpBar.maxValue = (int) player_script.GetPlayerXPLimit();
+        xpBar.value = (int) player_script.GetPlayerXP();
     }
     
     /* kad player izgubi sve helte, deaktiviraj trenutni screen, */
@@ -48,6 +48,7 @@ public class HealthBarScript : MonoBehaviour
             mapPanel.SetActive(false);
             attributesPanel.SetActive(true);
             ActivateAttributeButtons(true);
+            player_script.ChangeAttributesText();
         }
         else
         {

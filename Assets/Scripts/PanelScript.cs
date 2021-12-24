@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PanelScript : MonoBehaviour
 {
@@ -24,24 +25,9 @@ public class PanelScript : MonoBehaviour
         nextPanel.SetActive(true);
     }
 
-   // public void AttackWithAllMonsters()
-    //{
-      //  if (gameObject.transform.childCount > 0)
-        //{
-          //  foreach (Transform child in transform)
-            //{
-              //  MonsterScript monsterScript = child.GetChild(1).GetComponent<MonsterScript>();
-                //monsterScript.DealDamage();
-            //}
-        //}
-        //else
-       // {
-        //    LoadNextPanel();
-        //}
-    //}
-
     public void AttackWithAllMonsters()
     {
+        LockAllMonsters(true);
         int activeMonsters = 0;
         for (int i = 0; i < gameObject.transform.childCount; i++)
         {
@@ -63,8 +49,17 @@ public class PanelScript : MonoBehaviour
         GameObject player = GameObject.Find("PlayerScriptObject");
         PlayerScript player_script = player.GetComponent<PlayerScript>();
         player_script.SetPlayerProgress(gameObject.transform.parent.gameObject.transform.parent.gameObject);
-        mapPanel = GameObject.Find("MapPanel");
+        GameObject topPanels = GameObject.Find("TopPanels");
+        mapPanel = topPanels.transform.GetChild(0).transform.GetChild(0).gameObject;
         MapScript mapScript = mapPanel.GetComponent<MapScript>();
         mapScript.setupMapStatus();
+    }
+
+    public void LockAllMonsters(bool value)
+    {
+        for (int i = 0; i < gameObject.transform.childCount; i++)
+        {
+            gameObject.transform.GetChild(i).GetComponent<Button>().interactable = value;
+        }
     }
 }

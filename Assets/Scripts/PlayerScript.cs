@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
-    private double playerMaxHealth = 100;
-    private int playerHealth = 100;
-    private double playerDamage = 80;
-    private double playerArmor = 100;
+    private double playerMaxHealth = 1000000;
+    private double playerHealth = 1000000;
+    private double playerDamage = 80000;
+    private double playerArmor = 12000;
     private int playerProgress = 0;
-    private int playerXP = 0;
+    private double playerXP = 0;
     private int playerLevelCount = 1;
-    private int playerXPLimit = 100;
+    private double playerXPLimit = 100;
     private int playerAttributes = 0;
     public GameObject healthBar;
     public AudioSource audioSource;
@@ -54,12 +55,12 @@ public class PlayerScript : MonoBehaviour
         Debug.Log("Player armor is "+playerArmor+" now");
     }
     
-    public int GetPlayerHealth()
+    public double GetPlayerHealth()
     {
         return playerHealth;
     }
 
-    public void SetPlayerHealth(int value)
+    public void SetPlayerHealth(double value)
     {
         audioSource.Play();
         playerHealth = value;
@@ -92,10 +93,38 @@ public class PlayerScript : MonoBehaviour
         if (level.name == "MountainTopPanel")
         {
             playerProgress = 3;
+        }  // if (level.name == "GraveyardTopPanel" && playerProgress == 3)
+        if (level.name == "GraveyardTopPanel")
+        {
+            playerProgress = 4;
+        }
+        // if (level.name == "ClayLabyrinthTopPanel" && playerProgress == 4)
+        if (level.name == "ClayLabyrinthTopPanel")
+        {
+            playerProgress = 5;
+        }
+        // if (level.name == "PuppeteersPalaceTopPanel" && playerProgress == 5)
+        if (level.name == "PuppeteersPalaceTopPanel")
+        {
+            playerProgress = 6;
+        }  // if (level.name == "IvoryGatesTopPanel" && playerProgress == 6)
+        if (level.name == "IvoryGatesTopPanel")
+        {
+            playerProgress = 7;
+        }
+        // if (level.name == "UndergroundTopPanel" && playerProgress == 7)
+        if (level.name == "UndergroundTopPanel")
+        {
+            playerProgress = 8;
+        }
+        // if (level.name == "GrimlandTopPanel" && playerProgress == 8)
+        if (level.name == "GrimlandTopPanel")
+        {
+            playerProgress = 9;
         }
     }
     
-    public int GetPlayerXP()
+    public double GetPlayerXP()
     {
         return playerXP;
     }
@@ -116,12 +145,12 @@ public class PlayerScript : MonoBehaviour
     {
         playerXP = playerXP - playerXPLimit;
         playerLevelCount = playerLevelCount + 1;
-        playerXPLimit = playerXPLimit * 2;
+        playerXPLimit = playerXPLimit * 1.5;
         playerAttributes = playerAttributes + 1;
         ShowLevelUpText();
     }
     
-    public int GetPlayerXPLimit()
+    public double GetPlayerXPLimit()
     {
         return playerXPLimit;
     }
@@ -154,6 +183,7 @@ public class PlayerScript : MonoBehaviour
     public void HideAttributesButtons()
     {
         playerAttributes = playerAttributes - 1;
+        ChangeAttributesText();
         if (playerAttributes < 1)
         {
             GameObject topPanels = GameObject.Find("TopPanels");
@@ -172,5 +202,12 @@ public class PlayerScript : MonoBehaviour
     {
         GameObject bottomPanel = GameObject.Find("BottomPanel");
         bottomPanel.transform.GetChild(2).gameObject.SetActive(false);
+    }
+
+    public void ChangeAttributesText()
+    {
+        GameObject topPanels = GameObject.Find("TopPanels");
+        GameObject attributesText = topPanels.transform.GetChild(0).transform.GetChild(1).transform.GetChild(2).gameObject;
+        attributesText.GetComponent<Text>().text = "Points: "+ playerAttributes;
     }
 }

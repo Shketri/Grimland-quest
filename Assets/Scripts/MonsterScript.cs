@@ -2,11 +2,12 @@
 using System;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class MonsterScript : MonoBehaviour
 {
-    public int monsterHealth;
-    public int monsterDamage;
+    public double monsterHealth;
+    public double monsterDamage;
     public int monsterXP;
     public TextMeshProUGUI healthText;
     public GameObject monster;
@@ -14,14 +15,16 @@ public class MonsterScript : MonoBehaviour
 
     public void RecieveDamage()
     {
+        GameObject panel = gameObject.transform.parent.transform.parent.gameObject;
+        PanelScript panelScript = panel.GetComponent<PanelScript>();
+        panelScript.LockAllMonsters(false);
+        
         audioSource.Play();
         AttackAnimation();
         GameObject player = GameObject.Find("PlayerScriptObject");
         PlayerScript player_script = player.GetComponent<PlayerScript>();
-
-
-        GameObject panel = gameObject.transform.parent.transform.parent.gameObject;
-        PanelScript panelScript = panel.GetComponent<PanelScript>();
+        
+        
         panelScript.Invoke("AttackWithAllMonsters", 0.7f);
         if (player_script.GetPlayerDamage() < monsterHealth)
         {
@@ -41,11 +44,11 @@ public class MonsterScript : MonoBehaviour
             startAnimation();
             GameObject player = GameObject.Find("PlayerScriptObject");
             PlayerScript player_script = player.GetComponent<PlayerScript>();
-            int playerHealth = player_script.GetPlayerHealth();
-            int monsterDamageFinal = monsterDamage - (int) player_script.GetPlayerArmor() / 100;
+            double playerHealth = player_script.GetPlayerHealth();
+            double monsterDamageFinal = monsterDamage - player_script.GetPlayerArmor() / 100 + 1;
             player_script.SetPlayerHealth(playerHealth - monsterDamageFinal);
-            //Debug.Log("Monster original damage is " + monsterDamage + ", and damage reduced by armor is " +
-              //        monsterDamageFinal);
+            Debug.Log("Monster original damage is " + monsterDamage + ", and damage reduced by armor is " +
+                    monsterDamageFinal);
         }
     }
 
@@ -92,5 +95,4 @@ public class MonsterScript : MonoBehaviour
     {
         monster.transform.GetChild(2).gameObject.SetActive(false);
     }
-
 }
