@@ -56,6 +56,8 @@ public class HealthBarScript : MonoBehaviour
             mapPanel.SetActive(true);
             ActivateAttributeButtons(false);
         }
+        
+        SaveScript.SavePlayer(player_script, player_script.saveNumber);
     }
 
     /* pronadji topPanel objekat, u njemu prvo nadji aktivan level panel, pa onda aktivnu scenu, */

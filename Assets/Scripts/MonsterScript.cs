@@ -1,8 +1,6 @@
-
 using System;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public class MonsterScript : MonoBehaviour
 {
@@ -15,15 +13,14 @@ public class MonsterScript : MonoBehaviour
 
     public void RecieveDamage()
     {
-        GameObject panel = gameObject.transform.parent.transform.parent.gameObject;
-        PanelScript panelScript = panel.GetComponent<PanelScript>();
-        panelScript.LockAllMonsters(false);
-        
-        audioSource.Play();
-        AttackAnimation();
         GameObject player = GameObject.Find("PlayerScriptObject");
         PlayerScript player_script = player.GetComponent<PlayerScript>();
+        GameObject panel = gameObject.transform.parent.transform.parent.gameObject;
+        PanelScript panelScript = panel.GetComponent<PanelScript>();
         
+        panelScript.LockAllMonsters(false);
+        audioSource.Play();
+        AttackSpriteShow();
         
         panelScript.Invoke("AttackWithAllMonsters", 0.7f);
         if (player_script.GetPlayerDamage() < monsterHealth)
@@ -41,45 +38,44 @@ public class MonsterScript : MonoBehaviour
     {
         if (monster.gameObject.activeSelf)
         {
-            startAnimation();
+            StartAnimation();
             GameObject player = GameObject.Find("PlayerScriptObject");
             PlayerScript player_script = player.GetComponent<PlayerScript>();
             double playerHealth = player_script.GetPlayerHealth();
             double monsterDamageFinal = monsterDamage - player_script.GetPlayerArmor() / 100 + 1;
             player_script.SetPlayerHealth(playerHealth - monsterDamageFinal);
-            Debug.Log("Monster original damage is " + monsterDamage + ", and damage reduced by armor is " +
-                    monsterDamageFinal);
+            //Debug.Log("Monster original damage is " + monsterDamage + ", and damage reduced by armor is " +
+              //      monsterDamageFinal);
         }
     }
 
     private void Destroyed()
     {
-        giveXP();
-        //Destroy(monster);
+        GiveXP();
         monster.SetActive(false);
     }
 
-    private void giveXP()
+    private void GiveXP()
     {
         GameObject player = GameObject.Find("PlayerScriptObject");
         PlayerScript player_script = player.GetComponent<PlayerScript>();
         player_script.SetPlayerXP(monsterXP);
     }
 
-    private void startAnimation()
+    private void StartAnimation()
     {
         Vector3 temp = new Vector3(0,-25f,0);
         monster.transform.position += temp;
-        Invoke("GoBack", 0.3f);
+        Invoke("GoBackAnimation", 0.3f);
     }
     
-    private void GoBack()
+    private void GoBackAnimation()
     {
         Vector3 temp = new Vector3(0,25f,0);
         monster.transform.position += temp;
     }
 
-    private void AttackAnimation()
+    private void AttackSpriteShow()
     {
         try
         {
@@ -88,10 +84,10 @@ public class MonsterScript : MonoBehaviour
             print("AttackAnimationError");
         }  
 
-        Invoke("AttackAnimationHide", 0.3f);
+        Invoke("AttackSpriteHide", 0.3f);
     }
     
-    private void AttackAnimationHide()
+    private void AttackSpriteHide()
     {
         monster.transform.GetChild(2).gameObject.SetActive(false);
     }
