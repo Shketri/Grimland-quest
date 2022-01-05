@@ -54,7 +54,6 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\SaveData.cs" />
      <Compile Include="Assets\Scripts\MonsterScript.cs" />
-     <Compile Include="Assets\Scripts\SceneLoader.cs" />
      <Compile Include="Assets\Scripts\PlayerScript.cs" />
      <Compile Include="Assets\Scripts\MapScript.cs" />
      <Compile Include="Assets\Scripts\HealthBarScript.cs" />

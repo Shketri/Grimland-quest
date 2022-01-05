@@ -12,6 +12,7 @@ public class PlayerScript : MonoBehaviour
     private int playerLevelCount = 1;
     private double playerXPLimit = 100;
     private int playerAttributes = 0;
+    public string playerProgressText = "Spring Woods";
     public GameObject healthBar;
     public AudioSource audioSource;
     public int saveNumber = 1;
@@ -76,43 +77,43 @@ public class PlayerScript : MonoBehaviour
     
     public void SetPlayerProgress(GameObject level)
     {
-        if (level.name == "ForestTopPanel")
+        switch (level.name)
         {
-            playerProgress = 1;
-        }
-        if (level.name == "GloomTopPanel")
-        {
-            playerProgress = 2;
-        }
-
-        if (level.name == "MountainTopPanel")
-        {
-            playerProgress = 3;
-        }
-
-        if (level.name == "GraveyardTopPanel")
-        {
-            playerProgress = 4;
-        }
-        if (level.name == "ClayLabyrinthTopPanel")
-        {
-            playerProgress = 5;
-        }
-        if (level.name == "PuppeteersPalaceTopPanel")
-        {
-            playerProgress = 6;
-        }
-        if (level.name == "IvoryGatesTopPanel")
-        {
-            playerProgress = 7;
-        }
-        if (level.name == "UndergroundTopPanel")
-        {
-            playerProgress = 8;
-        }
-        if (level.name == "GrimlandTopPanel")
-        {
-            playerProgress = 9;
+            case "ForestTopPanel":
+                playerProgress = 1;
+                playerProgressText = "Duskwood";
+                break;
+            case "GloomTopPanel":
+                playerProgress = 2;
+                playerProgressText = "Mountains";
+                break;
+            case "MountainTopPanel":
+                playerProgress = 3;
+                playerProgressText = "Graveyard";
+                break;
+            case "GraveyardTopPanel":
+                playerProgress = 4;
+                playerProgressText = "Clay labyrinth";
+                break;
+            case "ClayLabyrinthTopPanel":
+                playerProgress = 5;
+                playerProgressText = "Puppeteer's palace";
+                break;
+            case "PuppeteersPalaceTopPanel":
+                playerProgress = 6;
+                playerProgressText = "Ivory gates";
+                break;
+            case "IvoryGatesTopPanel":
+                playerProgress = 7;
+                playerProgressText = "Underground";
+                break;
+            case "UndergroundTopPanel":
+                playerProgress = 8;
+                playerProgressText = "Grimland";
+                break;
+            case "GrimlandTopPanel":
+                playerProgress = 9;
+                break;
         }
     }
     
@@ -202,12 +203,6 @@ public class PlayerScript : MonoBehaviour
         GameObject attributesText = topPanels.transform.GetChild(0).transform.GetChild(1).transform.GetChild(2).gameObject;
         attributesText.GetComponent<Text>().text = "Points: "+ playerAttributes;
     }
-    
-    public void QuitGame()
-    {
-        Application.Quit();
-        Debug.Log("Quit!");
-    }
 
     public void LoadPlayer(int number)
     {
@@ -220,6 +215,7 @@ public class PlayerScript : MonoBehaviour
             playerDamage = data.playerDamage;
             playerArmor = data.playerArmor;
             playerProgress = data.playerProgress;
+            playerProgressText = data.playerProgressText;
             playerXP = data.playerXP;
             playerLevelCount = data.playerLevelCount;
             playerXPLimit = data.playerXPLimit;
